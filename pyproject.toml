@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gradr"
+dynamic = ["version"]
+description = 'A Python grader for PCS homework submissions'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "HackingHackers", email = "52874216+HackingHackers@users.noreply.github.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+]
+
+[project.urls]
+Documentation = "https://github.com/HackingHackers/gradr#readme"
+Issues = "https://github.com/HackingHackers/gradr/issues"
+Source = "https://github.com/HackingHackers/gradr"
+
+[project.scripts]
+gradr = "gradr.cli:gradr"
+
+[tool.hatch.version]
+path = "src/gradr/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/gradr tests}"
+
+[tool.coverage.run]
+source_pkgs = ["gradr", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/gradr/__about__.py",
+]
+
+[tool.coverage.paths]
+gradr = ["src/gradr", "*/gradr/src/gradr"]
+tests = ["tests", "*/gradr/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
